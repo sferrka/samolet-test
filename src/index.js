@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
 import { BrowserRouter } from 'react-router-dom';
 import ruRU from 'antd/lib/locale-provider/ru_RU';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
-
+import configureStore from './redux/store';
+const store = configureStore();
 
 ReactDOM.render(
-  <ConfigProvider locale={ruRU}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ConfigProvider>,
+  <Provider store={store}>
+    <ConfigProvider locale={ruRU}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ConfigProvider></Provider>,
   document.getElementById('root'),
 );
 
