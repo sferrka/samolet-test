@@ -1,48 +1,44 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Layout, Spin } from "antd";
 
-import { Layout, Spin } from 'antd';
-import './app.css';
-import { fetchReportsIfNeeded } from './redux/actions';
-import { Route, useParams, Switch } from 'react-router-dom';
-import Reports from 'components/Reports';
+import "./app.css";
+import { fetchReportsIfNeeded } from "./redux/actions";
+import { Route, Switch } from "react-router-dom";
+import Reports from "components/ReportsTable";
+import { AppHeader } from "components/Header";
+import Report from "components/Report";
+import { AppFooter } from "components/Footer";
 
 export default function App() {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchReportsIfNeeded());
   }, [dispatch]);
 
-  const isFetching = useSelector(state => state.reports.isFetching)
-  const reports = useSelector(state => state.reports.items)
+  const isFetching = useSelector((state) => state.reports.isFetching);
+  const reports = useSelector((state) =>
+    state.reports.items.filter(
+      (i) => i.territory.toLowerCase().indexOf(state.filter) > -1
+    )
+  );
 
-  const { Header, Footer, Content } = Layout;
+  const { Content } = Layout;
 
   return (
     <Layout>
-      <Header></Header>
-      <Content>
-        <Switch>
-          <Route exact path="/" children={isFetching ? <Spin size="large" /> :
-            <Reports reports={reports}/>} />
-          <Route path="/reports/:id" children={<Report />} />
-        </Switch>
+      <AppHeader />
+      <Content className="app-content">
+        {isFetching ? (
+          <Spin size="large" style={{ width: "100%" }} />
+        ) : (
+          <Switch>
+            <Route exact path="/" children={<Reports reports={reports} />} />
+            <Route path="/reports/:id" children={<Report />} />
+          </Switch>
+        )}
       </Content>
-      <Footer></Footer>
+      <AppFooter />
     </Layout>
-  );
-}
-
-
-function Report() {
-  // We can use the `useParams` hook here to access
-  // the dynamic pieces of the URL.
-  let { id } = useParams();
-
-  return (
-    <div>
-      <h3>ID: {id}</h3>
-    </div>
   );
 }
