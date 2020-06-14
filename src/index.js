@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import ruRU from 'antd/lib/locale-provider/ru_RU';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
@@ -14,9 +14,9 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <ConfigProvider locale={ruRU}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider></Provider>,
   document.getElementById('root'),
 );
