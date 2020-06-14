@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 import { Layout, Spin } from "antd";
 
 import "./app.css";
 import { fetchReportsIfNeeded } from "./redux/actions";
-import { Route, Switch } from "react-router-dom";
-import Reports from "components/ReportsTable";
 import { AppHeader } from "components/Header";
-import Report from "components/Report";
 import { AppFooter } from "components/Footer";
+import Report from "components/Report";
+import Reports from "components/ReportsTable";
 
 export default function App() {
   const dispatch = useDispatch();

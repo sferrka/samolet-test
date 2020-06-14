@@ -7,6 +7,7 @@ import ruRU from 'antd/lib/locale-provider/ru_RU';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
+// redux store
 import configureStore from './redux/store';
 const store = configureStore();
 

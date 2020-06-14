@@ -9,16 +9,11 @@ export function setFilter(filter) {
   };
 }
 
-function requestReports() {
-  return {
-    type: REQUEST_REPORTS,
-  };
-}
-
-function receiveReports(json) {
-  return {
-    type: RECEIVE_REPORTS,
-    reports: json,
+export function fetchReportsIfNeeded() {
+  return (dispatch, getState) => {
+    if (shouldFetchReports(getState())) {
+      return dispatch(fetchReports());
+    }
   };
 }
 
@@ -37,10 +32,15 @@ function shouldFetchReports(state) {
   return !state.reports.isFetching;
 }
 
-export function fetchReportsIfNeeded() {
-  return (dispatch, getState) => {
-    if (shouldFetchReports(getState())) {
-      return dispatch(fetchReports());
-    }
+function requestReports() {
+  return {
+    type: REQUEST_REPORTS,
+  };
+}
+
+function receiveReports(json) {
+  return {
+    type: RECEIVE_REPORTS,
+    reports: json,
   };
 }

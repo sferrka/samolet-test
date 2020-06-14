@@ -41,7 +41,7 @@ export default function Reports(props) {
       <Divider>
         <h1>Данные по регионам</h1>
       </Divider>
-      <Table
+      <Table bordered
         size="middle"
         pagination={{
           pageSizeOptions: ["10", "50", "100"],
